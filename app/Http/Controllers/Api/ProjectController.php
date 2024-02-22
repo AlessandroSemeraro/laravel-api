@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 class ProjectController extends Controller
 {
     public function index(){
-
-    $projects = Project::all();
+    
+    $projects =  Project::with('technologies','type')->paginate(2); //with//paginazione per n elementi che io voglio
     
     return response()->json($projects);
 
@@ -21,7 +21,11 @@ class ProjectController extends Controller
 
         $projects = Project::all();
         
-        return response()->json([$project]);
+        return response()->json(
+            [
+                "success"=>true,
+                "results"=> $project
+            ]);
     
         }
 }
